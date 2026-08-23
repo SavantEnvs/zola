@@ -1,0 +1,6 @@
+project: savantenvs/zola
+target: shortcodes
+
+cmds:
+  - cmd: /mayhem/shortcodes
+    libfuzzer: true

@@ -1,0 +1,37 @@
+[package]
+name = "zola-mayhem-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+ahash = "0.8"
+
+[dependencies.markdown]
+path = "../../components/markdown"
+
+[dependencies.config]
+path = "../../components/config"
+
+[dependencies.templates]
+path = "../../components/templates"
+
+[dependencies.utils]
+path = "../../components/utils"
+
+# Prevent this from interfering with the zola workspace
+[workspace]
+members = ["."]
+
+[profile.release]
+debug = 1
+
+[[bin]]
+name = "shortcodes"
+path = "fuzz_targets/shortcodes.rs"
+test = false
+doc = false
