@@ -1,0 +1,7 @@
+project: savantenvs/zola
+target: shortcodes-buggy-mhh-run-6
+# origin: https://app.mayhem.security/mayhemheroes/zola/shortcodes/6
+
+cmds:
+  - cmd: /mayhem/shortcodes
+    libfuzzer: true

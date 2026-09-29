@@ -1,0 +1,40 @@
+[package]
+name = "zola-mayhem-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+# content (a transitive dep of templates) needs time's "macros" feature; the
+# main zola workspace activates it via the zola binary crate, which this
+# standalone fuzz workspace never builds, so request it directly.
+time = { version = "0.3", features = ["formatting", "macros", "local-offset", "parsing"] }
+
+[dependencies.markdown]
+path = "../../components/markdown"
+
+[dependencies.config]
+path = "../../components/config"
+
+[dependencies.templates]
+path = "../../components/templates"
+
+[dependencies.utils]
+path = "../../components/utils"
+
+# Prevent this from interfering with the zola workspace
+[workspace]
+members = ["."]
+
+[profile.release]
+debug = 1
+
+[[bin]]
+name = "shortcodes"
+path = "fuzz_targets/shortcodes.rs"
+test = false
+doc = false
